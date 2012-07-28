@@ -56,7 +56,7 @@
 			if (!newMarker) {
 				newMarker = new google.maps.Marker({
 					position: location,
-					icon : 'http://www.google.com/mapfiles/markerI.png'
+					icon : 'github.png'
 				});
 			}
 			
