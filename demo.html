@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>I'm Demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+</head>
+
+<body>
+
+	<div data-role="page" id="showCurrentPositionPage">
+		<div data-role="header"><h1>My Location</h1></div>
+			
+		<div data-role="content">
+			<button id="showPosition">Show Current Location</button>
+			<div data-role="fieldcontainer">
+				<label for="latVal">Latitude</label>
+				<input name="latVal" type="text" id="latVal">
+				<label for="lngVal">Longitude</label>
+				<input name="lngVal" type="text" id="lngVal">
+			</div>
+			
+			<br>
+			<button id="showMap">Show Map</button>
+			<div id="mapCanvas" style="width:100%; height:240px;"></div>
+
+			<a id="showInfo" data-role="button" href="#infoPage" data-rel="dialog">Show Map Info</a>
+			
+		</div>
+	</div>
+
+	<div data-role="page" id="infoPage">
+		<div data-role="header">
+			<h1>Map Info</h1>
+		</div>
+
+		<div data-role="content">
+			<div id="mapInfo">
+				<p>Latitude: <span id="mapLat"></span>
+				<p>Longitude: <span id="mapLng"></span>
+				<p>Zoom level: <span id="mapZoom"></span>
+				<p>Marker Lat: <span id="markerLat"></span>
+				<p>Marker Lng: <span id="markerLng"></span>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="demo.js"></script>
+</body>
+</html>
