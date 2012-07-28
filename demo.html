@@ -26,15 +26,16 @@
 			
 			<br>
 			<button id="showMap">Show Map</button>
-			<div id="mapCanvas" style="width:100%; height:240px;"></div>
+			<div id="mapCanvas" style="width:290px; height:240px;"></div>
 
-			<a id="showInfo" data-role="button" href="#infoPage" data-rel="dialog">Show Map Info</a>
+			<a id="showInfo" data-role="button" href="#infoPage" data-rel="page" data-transition="slideup">Show Map Info</a>
 			
 		</div>
 	</div>
 
 	<div data-role="page" id="infoPage">
 		<div data-role="header">
+			<a data-rel="back">back</a>
 			<h1>Map Info</h1>
 		</div>
 
@@ -45,6 +46,9 @@
 				<p>Zoom level: <span id="mapZoom"></span>
 				<p>Marker Lat: <span id="markerLat"></span>
 				<p>Marker Lng: <span id="markerLng"></span>
+			</div>
+			<div>
+				<img id="mapImage" style="width:290px; height:240px; background-color:#eaeaea;">
 			</div>
 		</div>
 	</div>

@@ -13,11 +13,12 @@
 
 				var lat = p.coords.latitude;
 				var lng = p.coords.longitude;
+				
+				location = new google.maps.LatLng(lat, lng);
+				
+				$('#latVal').val(location.lat());
+				$('#lngVal').val(location.lng());
 
-				$('#latVal').val(lat);
-				$('#lngVal').val(lng);
-
-				self.location = new google.maps.LatLng(lat, lng);
 			};
 			
 			var failGPS = function(){
@@ -32,35 +33,37 @@
 			var self = this;
 		
 			if (atLocation) {
-				self.location = atLocation;
+				location = atLocation;
 			}
 
-			if (self.location) {
+			if (location) {
 				var myOptions = {       
 					zoom: 15,       
-					center: self.location,       
+					center: location,       
 					mapTypeId: google.maps.MapTypeId.ROADMAP    
 					};     
 					
-				self.map = new google.maps.Map($('#mapCanvas')[0],         
+				map = new google.maps.Map($('#mapCanvas')[0],         
 					myOptions);				
 			}			
 				
 		};
 		
 		
-		app.showMarker = function(marker) {
+		app.showMarker = function(newMarker) {
 			var self = this;
 		
-			if (!marker) {
-				marker = new google.maps.Marker({
-					position: self.location
+			if (!newMarker) {
+				newMarker = new google.maps.Marker({
+					position: location,
+					icon : 'http://www.google.com/mapfiles/markerI.png'
 				});
 			}
-
-			if (self.map) {
-				self.marker = marker;
-				self.marker.setMap(self.map);
+			
+			marker = newMarker;
+			
+			if (map && marker) {
+				marker.setMap(map);
 			}
 			
 		};
@@ -68,22 +71,36 @@
 		app.showInfo = function() {
 			var self = this;
 
-			if (self.map) {
-				$('#mapLat').text(self.map.center.lat());
-				$('#mapLng').text(self.map.center.lng());
-				$('#mapZoom').text(self.map.zoom);
-				$('#markerLat').text(self.marker.getPosition().lat());
-				$('#markerLng').text(self.marker.getPosition().lng());			
+			if (map && marker) {
+				$('#mapLat').text(map.center.lat());
+				$('#mapLng').text(map.center.lng());
+				$('#mapZoom').text(map.zoom);
+				$('#markerLat').text(marker.getPosition().lat());
+				$('#markerLng').text(marker.getPosition().lng());
+				
+				var markerName = 'zarazi'.toUpperCase();
+				var markerUrl = '&markers=color:yellow%7Clabel:' + markerName[0]+ '%7C';
+				markerUrl += marker.getPosition().lat() + ',' + marker.getPosition().lng(); 
+				
+				var mapUrl = 'http://maps.googleapis.com/maps/api/staticmap?';
+				mapUrl += '&center=' + map.center.lat() + ',' + map.center.lng();
+				mapUrl += '&zoom=' + map.zoom;
+				mapUrl += '&size=290x240';
+				mapUrl += '&maptype=roadmap';
+				mapUrl += '&sensor=false';
+				mapUrl += markerUrl;
+				
+				$('#mapImage').attr('src', mapUrl); 	
 			}
 			
 		};
 		
 	
-	})(window.imGeo = window.imGeo || {}, jQuery);	
+	})(window.imDemo = window.imDemo || {}, jQuery);	
 	
 
 	$('#showPosition').bind('click', function(e) {
-		imGeo.showPosition();
+		imDemo.showPosition();
 	});
 	
 	$('#showMap').bind('click', function(e) {
@@ -91,12 +108,12 @@
 		var lng = $('#lngVal').val();
 		var loc = new google.maps.LatLng(lat, lng);
 
-		imGeo.showMap(loc);
-		imGeo.showMarker();
+		imDemo.showMap(loc);
+		imDemo.showMarker();
 
 	});
 
-	$('#infoPage').bind('pagebeforeshow', function() {
-		imGeo.showInfo();
+	$('#infoPage').live('pagebeforeshow', function() {
+		imDemo.showInfo();
 	})
 
