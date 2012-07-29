@@ -7,26 +7,95 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+	<!--<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
+    <style> 
+        .nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+        .nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+        #meButton .ui-icon { background:  url(github.png) 50% 50% no-repeat;  background-size: 26px 26px; }
+        #friendsButton .ui-icon { background:  url(07-map-marker.png) 50% 50% no-repeat;  background-size: 16px 26px; }
+        </style>
+
 </head>
 
 <body>
 	<div data-role="page" id="mePage">
-		<div data-role="header" data-theme="a" data-position="fixed"><h1>Here am I</h1></div>
-		<div data-role="header" data-theme="e">
-			<h4><span id="latInfo">XX.xxx</span> , <span id="lngInfo">YY.yyy</span></h4>
+		<div data-role="header" data-theme="a" data-position="fixed"><h1>Me</h1></div>
+		<div data-role="header" data-theme="b">
+			<div align="center" style="padding:4px;"><span id="latInfo">XX.xxx</span> , <span id="lngInfo">YY.yyy</span></div>
 		</div>
 
 		<div data-role="content">
-			<div id="mapCanvas" style="width:100%;height:320px;background-color:#DEDEDE;">
+			<div id="mapCanvas" style="width:100%;height:300px;background-color:#DEDEDE;">
 				<div align="center">Show your location here</div>
 			</div>
 		</div>
 
-		<div data-role="footer" data-position="fixed">
-			<h4>Put Toolbars here</h4>
+		<div data-role="footer" data-position="fixed" class="nav-glyphish-example" data-theme="a">
+			<div data-role="navbar" class="nav-glyphish-example">
+				<ul>
+		            <li><a href="#mePage" id="meButton" data-icon="custom" class="ui-btn-active ui-state-persist">Me</a></li>
+		            <li><a href="#friendsPage" id="friendsButton" data-icon="custom">Friends</a></li>
+		            <li><a href="#searchPage" id="searchButton" data-icon="custom">Search</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="friendsPage">
+		<div data-role="header" data-theme="a" data-position="fixed"><h1>Friends</h1></div>
+
+		<div data-role="content">
+			<ul data-role="listview" data-inset="true" id="friendsList">
+				<li data-role="list-divider">Should not see me!</li>
+			</ul>
+
 		</div>
 
+		<div data-role="footer" data-position="fixed" class="nav-glyphish-example" data-theme="a">
+			<div data-role="navbar" class="nav-glyphish-example">
+				<ul>
+		            <li><a href="#mePage" id="meButton" data-icon="custom">Me</a></li>
+		            <li><a href="#friendsPage" id="friendsButton" data-icon="custom" class="ui-btn-active ui-state-persist">Friends</a></li>
+		            <li><a href="#searchPage" id="searchButton" data-icon="custom">Search</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="searchPage">
+		<div data-role="header" data-theme="a" data-position="fixed"><h1>Search</h1></div>
+
+		<div data-role="content">
+            <div data-role="fieldcontain">
+                <label for="qryField"></label>
+                <input type="text" id="qryField" name="qryField">
+                <button id="searchNow">Search</button>
+            </div>
+            <div align="center" id="markerInfo"></div>
+            <div id="resultMap" style="width:100%;height:300px;background-color:#DEDEDE;"></div>
+		</div>
+
+		<div data-role="footer" data-position="fixed" class="nav-glyphish-example" data-theme="a">
+			<div data-role="navbar" class="nav-glyphish-example">
+				<ul>
+		            <li><a href="#mePage" id="meButton" data-icon="custom">Me</a></li>
+		            <li><a href="#friendsPage" id="friendsButton" data-icon="custom">Friends</a></li>
+		            <li><a href="#searchPage" id="searchButton" data-icon="custom" class="ui-btn-active ui-state-persist">Search</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="friendMap">
+		<div data-role="header" data-theme="a" data-position="fixed">
+			<a data-rel="back">back</a>
+			<h1 id="friendName">Friend Name</h1></div>
+
+		<div data-role="content">
+			<img id="mapImage" style="width:290px;height:320px;background-color:#DEDEDE;" />
+		</div>
 	</div>
 
 	<script src="app.js"></script>
